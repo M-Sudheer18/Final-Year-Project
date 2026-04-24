@@ -7,7 +7,6 @@ import pandas as pd
 
 # For getting model
 from huggingface_hub import hf_hub_download
-import joblib
 import os
 
 app = Flask(__name__)
