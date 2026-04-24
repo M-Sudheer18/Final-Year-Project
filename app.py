@@ -1,8 +1,14 @@
 from flask import Flask, render_template, request
 import pickle
+import joblib
 import uuid
 from flask import send_file
 import pandas as pd
+
+# For getting model
+from huggingface_hub import hf_hub_download
+import joblib
+import os
 
 app = Flask(__name__)
 
@@ -26,7 +32,7 @@ def multiple():
 # For dowling the File 
 @app.route('/download_sample')
 def download_sample():
-     return send_file('static/sample_emp_data.xlsx', as_attachment=True)
+     return send_file('static/sample_emp_data.csv', as_attachment=True)
 
 columns = [
         'Age',
@@ -90,13 +96,30 @@ cat_cols = [
 ]
 
 
+# try:
+#     with open("Model.pkl", "rb") as f:
+#         model = pickle.load(f)
+# except Exception as e:
+#     print("Model loading error:", e)
+
+
+
+MODEL_FILE = "Model.pkl"
+
 try:
-    with open("Model.pkl", "rb") as f:
-        model = pickle.load(f)
+    if not os.path.exists(MODEL_FILE):
+        print("Downloading model from Hugging Face...")
+        MODEL_FILE = hf_hub_download(
+            repo_id="Sudheer17/employee-performance-model",
+            filename="Model.pkl"
+        )
+
+    print("Loading model...")
+    model = joblib.load(MODEL_FILE)
+    print("Model loaded successfully ✅")
+
 except Exception as e:
     print("Model loading error:", e)
-
-
 
 
 @app.route('/predict', methods = ["POST"])
@@ -279,25 +302,6 @@ def predict_multiple():
 
     except Exception as e:
         return str(e)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
