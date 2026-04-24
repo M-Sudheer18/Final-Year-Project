@@ -1,0 +1,138 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Performance Prediction</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Arial, sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        overflow-y: auto;
+        background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #000000);
+        color: white;
+        transition: opacity 0.3s ease;
+      }
+
+      .container {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        padding-top: 60px;
+        width: 90%;
+        max-width: 1000px;
+        margin: auto;
+      }
+
+      .neon {
+        font-size: 38px;
+        color: #00f7ff;
+        text-shadow:
+          0 0 10px #00f7ff,
+          0 0 20px #00f7ff;
+      }
+
+      .brain {
+        width: 130px;
+        height: 130px;
+        margin: 30px auto;
+        background: url("https://cdn-icons-png.flaticon.com/512/4712/4712109.png")
+          no-repeat center;
+        background-size: contain;
+        filter: drop-shadow(0 0 10px #00f7ff);
+      }
+
+      p {
+        margin-top: 20px;
+        font-size: 18px;
+        color: #ccc;
+        line-height: 1.7;
+      }
+
+      .landing-text {
+        margin-top: 20px;
+      }
+
+      button {
+        padding: 12px 25px;
+        margin: 15px;
+        border: none;
+        border-radius: 30px;
+        background: linear-gradient(45deg, #00f7ff, #ff00c8);
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: none;
+      }
+
+      button:hover {
+        box-shadow: 0 0 15px #00f7ff;
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1 class="neon">
+        Employee Performance Prediction<br />Using Machine Learning
+      </h1>
+
+      <div class="brain"></div>
+
+      <p>
+        Employee Performance Prediction Using Machine Learning is a data-driven
+        system designed to analyze employee-related factors and predict overall
+        performance in an organization. The system uses machine learning
+        techniques to study important attributes such as department, job role,
+        experience, working hours, salary, training, promotions, job
+        satisfaction, and work patterns.
+      </p>
+
+      <p class="landing-text">
+        By processing both historical and manually entered employee data, the
+        model identifies performance trends and helps classify employees as
+        high, average, or low performers. This project assists organizations in
+        making informed HR decisions, improving productivity, reducing employee
+        turnover, and enhancing workforce planning through intelligent
+        performance analysis.
+      </p>
+
+      <button type="button" onclick="goSingle()">Employee Prediction</button>
+
+      <button type="button" onclick="goMultiple()">
+        Multiple Employee Prediction
+      </button>
+    </div>
+
+    <script>
+      function goSingle() {
+        try {
+          document.body.style.opacity = "0";
+          window.location.href = "/second";
+        } catch (e) {
+          alert("Failed to navigate to Employee Prediction page");
+        }
+      }
+
+      function goMultiple() {
+        try {
+          window.location.href = "/multiple";
+        } catch (e) {
+          alert("Failed to navigate to Multiple Prediction page");
+        }
+      }
+
+     
+    </script>
+  </body>
+</html>

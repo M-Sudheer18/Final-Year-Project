@@ -1,0 +1,261 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Data Entry</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Arial, sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #000000);
+        color: white;
+        overflow-y: auto;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 40px;
+      }
+
+      /* Form Container */
+      .form-container {
+        position: relative;
+        z-index: 1;
+        background: rgba(255, 255, 255, 0.08);
+        padding: 30px;
+        border-radius: 20px;
+
+        width: 90%;
+        max-width: 450px;
+
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #00ffff;
+        text-shadow: 0 0 10px #00ffff;
+      }
+
+      label {
+        display: block;
+        margin-top: 10px;
+        font-size: 14px;
+        color: #ddd;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        font-size: 14px;
+      }
+
+      input {
+        background: white;
+        color: black;
+      }
+
+      select {
+        background: white;
+        color: black;
+      }
+
+      button {
+        margin: 10px 0;
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 25px;
+        background: linear-gradient(45deg, #00f7ff, #ff00c8);
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: none;
+      }
+      .back-btn {
+        width: 100%;
+        margin-top: 10px;
+        padding: 12px;
+        border-radius: 25px;
+        background: linear-gradient(45deg, #ff6b6b, #f06595);
+      }
+
+      button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px #00f7ff;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="form-container">
+      <h2>Enter Employee Details</h2>
+
+      <form action="/predict" method="POST">
+        <label for="name">Employee Name</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="department">Department</label>
+        <select id="department" name="department" required>
+          <option value="">Select</option>
+          <option>IT</option>
+          <option>HR</option>
+          <option>Finance</option>
+          <option>Marketing</option>
+          <option>Engineering</option>
+          <option>Legal</option>
+          <option>Operations</option>
+          <option>Sales</option>
+        </select>
+
+        <label for="gender">Gender</label>
+        <select id="gender" name="gender" required>
+          <option value="">Select</option>
+          <option>Male</option>
+          <option>Female</option>
+        </select>
+
+        <label for="Age">Age</label>
+        <input 
+          type="number" 
+          id="Age" 
+          name="Age" 
+          min="18" 
+          max="65" 
+          placeholder="e.g. 23"
+          required />
+
+        <label for="Years_At_Company">Years at Company</label>
+        <input
+          type="number"
+          id="Years_At_Company"
+          name="Years_At_Company"
+          min="0"
+          max="40"
+          step="1"
+          placeholder="e.g. 5"
+          required
+        />
+
+        <label for="education">Education Level</label>
+        <select id="education" name="education" required>
+          <option value="">Select</option>
+          <option>Bachelor</option>
+          <option>Master</option>
+          <option>PhD</option>
+        </select>
+
+        <label for="Monthly_Salary">Monthly Salary</label>
+        <input
+          type="number"
+          id="Monthly_Salary"
+          name="Monthly_Salary"
+          min="1000"
+          step="1000"
+          placeholder="Enter salary (e.g. 50000)"
+          required
+        />
+
+        <label>Work Hours per Week</label>
+        <input
+          type="number"
+          name="Work_Hours_Per_Week"
+          min="1"
+          max="100"
+          step="1"
+          placeholder="e.g. 40"
+          required
+        />
+
+        <label>Projects Handled</label>
+        <input
+          type="number"
+          name="Projects_Handled"
+          min="0"
+          max="50"
+          step="1"
+          placeholder="e.g. 1"
+          required
+        />
+
+        <label>Overtime Hours</label>
+        <input 
+          type="number" 
+          name="Overtime_Hours" 
+          min="0" 
+          max="50" 
+          step="1"
+          placeholder="e.g. 10"
+          required />
+
+        <label>Remote Work Frequency</label>
+        <select name="Remote_Work_Frequency" required>
+          <option value="">Select</option>
+          <option value="0">Never</option>
+          <option value="25">Rarely</option>
+          <option value="50">Sometimes</option>
+          <option value="75">Often</option>
+          <option value="100">Always</option>
+        </select>
+
+        <label>Promotions</label>
+        <input 
+          type="number" 
+          name="Promotions" 
+          min="0" 
+          max="10"
+          step="1"
+          placeholder="e.g. 2"
+          required />
+
+        <label>Employee Satisfaction Score</label>
+        <input
+          type="number"
+          step="0.1"
+          name="Employee_Satisfaction_Score"
+          min="0"
+          max="5"
+          placeholder="e.g. 3"
+          required
+        />
+
+        <label>Job Title</label>
+        <select name="job" required>
+          <option value="">Select</option>
+          <option>Developer</option>
+          <option>Engineer</option>
+          <option>Manager</option>
+          <option>Consultant</option>
+          <option>Specialist</option>
+          <option>Technician</option>
+        </select>
+
+        <button type="submit">Perform Prediction</button>
+        <button type="button" onclick="goHome()" class="back-btn">
+          Back to Home
+        </button>
+      </form>
+    </div>
+    <script>
+       function goHome() {
+        window.location.href = "/";
+      }
+    </script>
+  </body>
+</html>

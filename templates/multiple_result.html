@@ -1,0 +1,282 @@
+multiple result
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multiple Employee Prediction Result</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        background: #1a1a2e;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 800px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 35px;
+        box-shadow: 0 0 15px rgba(0, 247, 255, 0.15);
+      }
+
+      .title {
+        text-align: center;
+        font-size: 32px;
+        color: #00f7ff;
+        margin-bottom: 10px;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: #d9d9d9;
+        font-size: 16px;
+        margin-bottom: 30px;
+      }
+
+      .success-box {
+        background: rgba(44, 182, 125, 0.15);
+        border: 1px solid #2cb67d;
+        color: #90ee90;
+        padding: 15px;
+        border-radius: 12px;
+        text-align: center;
+        font-weight: 600;
+        margin-bottom: 25px;
+      }
+
+      .details-box {
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 25px;
+      }
+
+      .details-box h3 {
+        color: #00f7ff;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+
+      .detail-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        font-size: 16px;
+      }
+
+      .detail-row:last-child {
+        border-bottom: none;
+      }
+
+      .label {
+        color: #d9d9d9;
+        font-weight: 500;
+      }
+
+      .value {
+        color: #ffffff;
+        font-weight: 600;
+      }
+
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+
+      .summary-card {
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 15px;
+        padding: 20px;
+        text-align: center;
+      }
+
+      .summary-card h4 {
+        font-size: 16px;
+        margin-bottom: 10px;
+        color: #d9d9d9;
+      }
+
+      .summary-card p {
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .high {
+        border: 1px solid #2cb67d;
+      }
+
+      .high p {
+        color: #2cb67d;
+      }
+
+      .medium {
+        border: 1px solid #ffd369;
+      }
+
+      .medium p {
+        color: #ffd369;
+      }
+
+      .low {
+        border: 1px solid #ff6b6b;
+      }
+
+      .low p {
+        color: #ff6b6b;
+      }
+
+      .button-group {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      button {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 30px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        min-width: 220px;
+        color: white;
+      }
+
+      .download-btn {
+        background: linear-gradient(45deg, #00f7ff, #ff00c8);
+      }
+
+      .home-btn {
+        background: linear-gradient(45deg, #ff6b6b, #f06595);
+      }
+
+      .back-btn {
+        background: linear-gradient(45deg, #7f5af0, #2cb67d);
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 20px;
+        }
+
+        .title {
+          font-size: 26px;
+        }
+
+        .summary-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .detail-row {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 5px;
+        }
+
+        .button-group {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        button {
+          width: 100%;
+          max-width: 300px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">Multiple Employee Prediction Result</h1>
+      <p class="subtitle">
+        Bulk employee performance prediction completed successfully.
+      </p>
+
+      <div class="success-box">
+        Prediction completed! Your file has been processed successfully.
+      </div>
+
+      <div class="details-box">
+        <h3>Prediction Summary</h3>
+
+        <div class="detail-row">
+          <span class="label">Uploaded File</span>
+          <span class="value">{{ file_name }}</span>
+        </div>
+
+        <div class="detail-row">
+          <span class="label">Total Employees Processed</span>
+          <span class="value">{{ total_employees }}</span>
+        </div>
+
+        <div class="detail-row">
+          <span class="label">Prediction Status</span>
+          <span class="value">Completed</span>
+        </div>
+
+        <div class="detail-row">
+          <span class="label">Output File</span>
+          <span class="value">{{ output_file }}</span>
+        </div>
+      </div>
+
+      <div class="summary-grid">
+        <div class="summary-card high">
+          <h4>High Performers</h4>
+          <p>{{ high_count }}</p>
+        </div>
+
+        <div class="summary-card medium">
+          <h4>Medium Performers</h4>
+          <p>{{ medium_count }}</p>
+        </div>
+
+        <div class="summary-card low">
+          <h4>Low Performers</h4>
+          <p>{{ low_count }}</p>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="download-btn" onclick="downloadResults()">
+          Download Predicted Results
+        </button>
+        <button class="back-btn" onclick="goBack()">Back to Upload Page</button>
+        <button class="home-btn" onclick="goHome()">Back to Home</button>
+      </div>
+    </div>
+
+    <script>
+      function downloadResults() {
+        window.location.href = "/download_results/{{ output_file }}";
+      }
+
+      function goBack() {
+        window.location.href = "/multiple";
+      }
+
+      function goHome() {
+        window.location.href = "/";
+      }
+    </script>
+  </body>
+</html>

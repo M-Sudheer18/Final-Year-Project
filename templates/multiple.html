@@ -1,0 +1,346 @@
+multiple.html
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multiple Employee Prediction</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        overflow-y: auto;
+        background: #1a1a2e;
+        color: white;
+      }
+
+      .container {
+        max-width: 700px;
+        margin: 50px auto;
+        padding: 30px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 25px;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 0 15px rgba(0, 247, 255, 0.15);
+        text-align: center;
+      }
+
+      .title {
+        font-size: 34px;
+        color: #00f7ff;
+        margin-bottom: 15px;
+      }
+
+      .icon {
+        width: 110px;
+        height: 110px;
+        margin: 20px auto;
+        background: url("https://cdn-icons-png.flaticon.com/512/4712/4712109.png") no-repeat center;
+        background-size: contain;
+        filter: drop-shadow(0 0 10px #00f7ff);
+      }
+
+      /* .icon {
+        width: 110px;
+        height: 110px;
+        margin: 20px auto;
+        border-radius: 50%;
+        background: rgba(0, 247, 255, 0.2);
+        border: 2px solid #00f7ff;
+        box-shadow: 0 0 20px #00f7ff;
+      } */
+
+      .subtitle {
+        color: #d9d9d9;
+        font-size: 17px;
+        line-height: 1.7;
+        margin-bottom: 25px;
+      }
+
+      .upload-box {
+        border: 2px dashed #00f7ff;
+        border-radius: 20px;
+        padding: 30px 20px;
+        margin: 25px 0;
+        background: rgba(0, 247, 255, 0.05);
+      }
+
+      .upload-label {
+        display: inline-block;
+        padding: 12px 24px;
+        border-radius: 30px;
+        background: linear-gradient(45deg, #00f7ff, #ff00c8);
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
+
+      input[type="file"] {
+        display: none;
+      }
+
+      .file-name {
+        margin-top: 10px;
+        font-size: 15px;
+        color: #ffd369;
+        word-wrap: break-word;
+      }
+
+      .button-group {
+        margin-top: 25px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      button {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 30px;
+        background: linear-gradient(45deg, #00f7ff, #ff00c8);
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        min-width: 180px;
+        font-weight: 600;
+      }
+
+      .secondary-btn {
+        background: linear-gradient(45deg, #7f5af0, #2cb67d);
+      }
+
+      .back-btn {
+        background: linear-gradient(45deg, #ff6b6b, #f06595);
+      }
+
+      .info-box {
+        margin-top: 25px;
+        padding: 18px;
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.07);
+        text-align: left;
+        line-height: 1.8;
+        color: #e6e6e6;
+        font-size: 15px;
+      }
+
+      .info-box h3 {
+        color: #00f7ff;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
+      .status {
+        margin-top: 20px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #90ee90;
+        min-height: 24px;
+      }
+
+      .error {
+        color: #ff6b6b;
+      }
+
+      .success {
+        color: #90ee90;
+      }
+
+      #loader {
+        margin-top: 15px;
+        font-size: 16px;
+        color: #ffd369;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          margin: 20px;
+          padding: 20px;
+        }
+
+        .title {
+          font-size: 26px;
+        }
+
+        .button-group {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        button {
+          width: 100%;
+          max-width: 280px;
+        }
+
+
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">Multiple Employee Prediction</h1>
+      <div class="icon"></div>
+
+      <p class="subtitle">
+        Upload an Excel or CSV file containing multiple employee records to
+        predict performance in bulk. This helps HR teams quickly analyze many
+        employees at once using machine learning.
+      </p>
+
+      <div class="upload-box">
+        <label for="employeeFile" class="upload-label">
+          Choose Excel / CSV File
+        </label>
+        <input
+          type="file"
+          id="employeeFile"
+          accept=".xlsx,.xls,.csv"
+          onchange="showFileName()"
+        />
+        <div class="file-name" id="fileName">No file selected</div>
+      </div>
+
+      <div class="button-group">
+        <button onclick="uploadAndPredict(event)">Predict</button>
+        <button class="secondary-btn" onclick="downloadSample()">
+          Download Sample File
+        </button>
+        <button class="back-btn" onclick="goBack()">Back to Home</button>
+      </div>
+
+      <div class="status" id="statusMessage"></div>
+
+      <div id="loader" style="display:none;">⏳ Processing...</div>
+
+      <div class="info-box">
+        <h3>Required File Format</h3>
+        <p><strong>Supported formats:</strong> .xlsx, .xls, .csv</p>
+        <p><strong>Example columns:</strong></p>
+        <p>
+          Age, Years_At_Company, Monthly_Salary, Work_Hours_Per_Week,
+          Projects_Handled, Overtime_Hours, Remote_Work_Frequency,
+          Promotions, Employee_Satisfaction_Score,
+          Department, Job_Title, Education_Level
+        </p>
+        <p>
+          Make sure the uploaded file contains the same columns used during
+          model training.
+        </p>
+      </div>
+    </div>
+
+    <script>
+      // Show selected file name
+      function showFileName() {
+        const fileInput = document.getElementById("employeeFile");
+        const fileName = document.getElementById("fileName");
+        const statusMessage = document.getElementById("statusMessage");
+
+        statusMessage.textContent = "";
+        statusMessage.className = "status";
+
+        if (fileInput.files.length > 0) {
+          fileName.textContent = "Selected File: " + fileInput.files[0].name;
+        } else {
+          fileName.textContent = "No file selected";
+        }
+      }
+
+      // Upload & Predict button
+      function uploadAndPredict(event) {
+        const fileInput = document.getElementById("employeeFile");
+        const btn = event.target;
+        btn.disabled = true;
+        const statusMessage = document.getElementById("statusMessage");
+
+
+        if (fileInput.files.length === 0) {
+          statusMessage.textContent =
+            "Please select an Excel or CSV file first!";
+          statusMessage.className = "status error";
+          btn.disabled = false;   // ✅ ADD THIS
+          return;
+        }
+
+        const file = fileInput.files[0];
+        const fileName = file.name.toLowerCase();
+
+        if (file.size > 5 * 1024 * 1024) {
+          statusMessage.textContent = "File too large (max 5MB)";
+          statusMessage.className = "status error";
+          btn.disabled = false;
+          return;
+        }
+
+        if (
+          !fileName.endsWith(".xlsx") &&
+          !fileName.endsWith(".xls") &&
+          !fileName.endsWith(".csv")
+        ) {
+          statusMessage.textContent =
+            "Invalid file type! Please upload .xlsx, .xls, or .csv file.";
+          statusMessage.className = "status error";
+          btn.disabled = false;
+          return;
+        }
+
+        statusMessage.textContent =
+          "Processing file... Please wait.";
+        statusMessage.className = "status success";
+
+        document.getElementById("loader").style.display = "block";
+
+        // Backend integration
+        const formData = new FormData();
+        formData.append("file", file);
+
+        fetch("/predict_multiple", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.text())
+          .then((data) => {
+            if (data.startsWith("Missing columns")) {
+              throw new Error(data);
+            }
+
+            document.getElementById("loader").style.display = "none";
+            btn.disabled = false;
+            statusMessage.textContent = "";
+
+            document.open();
+            document.write(data);
+            document.close();
+          })
+          .catch((error) => {
+            statusMessage.textContent = "Error: " + error.message;
+            statusMessage.className = "status error";
+
+            document.getElementById("loader").style.display = "none";
+            btn.disabled = false;
+          });
+      }
+
+      // Download sample file
+      function downloadSample() {
+        window.location.href = "/download_sample";
+      }
+
+      // Back button
+      function goBack() {
+        window.location.href = "/";
+      }
+    </script>
+  </body>
+</html>
